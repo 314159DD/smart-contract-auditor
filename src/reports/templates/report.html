@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @page { margin: 2cm; size: A4; }
+  body { font-family: 'Helvetica Neue', Arial, sans-serif; color: #1a202c; line-height: 1.6; }
+  .cover { text-align: center; padding: 4cm 0; border-bottom: 2px solid #e2e8f0; margin-bottom: 2em; }
+  .cover h1 { font-size: 28px; color: #1a202c; margin-bottom: 0.5em; }
+  .cover .meta { color: #718096; font-size: 14px; }
+  .risk-score { display: inline-block; font-size: 48px; font-weight: bold; }
+  .verdict { display: inline-block; font-size: 20px; margin-left: 12px; }
+  h2 { font-size: 18px; color: #2d3748; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; margin-top: 2em; }
+  .summary-table { width: 100%; border-collapse: collapse; margin: 1em 0; }
+  .summary-table th, .summary-table td { padding: 8px 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+  .summary-table th { background: #f7fafc; font-size: 13px; }
+  .finding { background: #f8fafc; padding: 16px; margin: 12px 0; border-radius: 4px; page-break-inside: avoid; }
+  .finding-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .severity-badge { padding: 2px 10px; border-radius: 4px; font-size: 11px; font-weight: bold; letter-spacing: 1px; }
+  .finding-title { font-size: 15px; font-weight: 600; }
+  .finding-meta { font-size: 12px; color: #718096; margin: 4px 0; }
+  .code-block { margin: 8px 0; }
+  .code-label { font-size: 11px; color: #718096; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  pre { background: #1a202c; color: #e2e8f0; padding: 12px; border-radius: 4px; font-size: 11px; overflow: hidden; white-space: pre-wrap; word-break: break-all; }
+  .code-block.fixed pre { background: #1a3a2a; }
+  .code-block.vulnerable pre { background: #3a1a1a; }
+  .recommendation { background: #ebf8ff; border-left: 3px solid #63b3ed; padding: 8px 12px; margin-top: 8px; font-size: 13px; }
+  .disclaimer { background: #fffbeb; border: 1px solid #fbbf24; padding: 12px; border-radius: 4px; font-size: 11px; color: #92400e; margin-top: 3em; }
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1em; }
+  .info-item { background: #f7fafc; padding: 12px; border-radius: 4px; }
+  .info-item label { font-size: 11px; color: #718096; text-transform: uppercase; letter-spacing: 0.5px; }
+  .info-item value { font-size: 16px; font-weight: 600; display: block; margin-top: 4px; }
+</style>
+</head>
+<body>
+  <div class="cover">
+    <div style="font-size:13px; color:#48bb78; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px;">ContractAuditor Security Report</div>
+    <h1>{{contract_name}}</h1>
+    <div class="meta">
+      {{meta_line}}
+      Scan type: {{scan_type}}
+    </div>
+    <div style="margin-top: 2em;">
+      <span class="risk-score" style="color:{{risk_color}};">{{risk_score}}</span>
+      <span class="verdict" style="color:{{risk_color}};">/ 100 &mdash; {{verdict}}</span>
+    </div>
+  </div>
+
+  <h2>Executive Summary</h2>
+  <table class="summary-table">
+    <tr><th>Severity</th><th>Count</th></tr>
+    <tr><td>Critical</td><td>{{critical}}</td></tr>
+    <tr><td>High</td><td>{{high}}</td></tr>
+    <tr><td>Medium</td><td>{{medium}}</td></tr>
+    <tr><td>Low</td><td>{{low}}</td></tr>
+    <tr><td>Info</td><td>{{info}}</td></tr>
+    <tr><th>Total</th><th>{{total_findings}}</th></tr>
+  </table>
+
+  {{contract_info_html}}
+
+  <h2>Findings ({{findings_count}})</h2>
+  {{findings_html}}
+
+  <h2>Methodology</h2>
+  <p>This audit was performed using a combination of automated static analysis
+  and AI-powered deep analysis (Claude). Static analysis detects common vulnerability
+  patterns including reentrancy, access control issues, integer overflow, unchecked
+  calls, and more. AI analysis examines business logic, economic attack vectors,
+  and generates tailored fix suggestions.</p>
+
+  <div class="disclaimer">
+    <strong>Disclaimer:</strong> This report is provided for informational purposes
+    only and does not constitute legal or financial advice. Smart contract audits
+    cannot guarantee the absence of all vulnerabilities. No liability is assumed
+    for losses arising from use of this report. Always consult multiple security
+    experts before deploying contracts to production.
+  </div>
+</body>
+</html>

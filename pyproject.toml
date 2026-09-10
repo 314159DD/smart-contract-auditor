@@ -1,0 +1,21 @@
+[project]
+name = "smart-contract-auditor"
+version = "1.0.0"
+description = "AI-powered smart contract security scanner for Solidity"
+requires-python = ">=3.12"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short -q"
+markers = [
+    "integration: full pipeline integration tests (parse -> detect -> report)",
+    "api: API endpoint integration tests",
+    "security: security audit tests",
+    "slow: tests that take >5 seconds",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
